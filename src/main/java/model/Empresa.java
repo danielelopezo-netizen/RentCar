@@ -48,8 +48,20 @@ public class Empresa {
     }
 
     // Aquí luego implementaremos el cálculo de ingresos por fechas...
-    public double calcularIngresos(LocalDate inicio, LocalDate fin) {
-        // TODO: Lógica de ingresos
-        return 0.0;
+    public double calcularIngresos(LocalDate fechaInicioPeriodo, LocalDate fechaFinPeriodo) {
+        double ingresosTotales = 0.0;
+
+        for (Reserva reserva : reservas) {
+            LocalDate fechaReserva = reserva.getFechaInicio();
+
+            // Verificamos si la fecha de la reserva está dentro del rango de fechas consultado (inclusive)
+            boolean despuesOIgualInicio = fechaReserva.isEqual(fechaInicioPeriodo) || fechaReserva.isAfter(fechaInicioPeriodo);
+            boolean antesOIgualFin = fechaReserva.isEqual(fechaFinPeriodo) || fechaReserva.isBefore(fechaFinPeriodo);
+
+            if (despuesOIgualInicio && antesOIgualFin) {
+                ingresosTotales += reserva.calcularTotal();
+            }
+        }
+        return ingresosTotales;
     }
 }

@@ -28,6 +28,10 @@ public class Reserva {
         this.serviciosContratados.add(servicio);
     }
 
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
     public double calcularTotal() {
         int dias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaFin);
 
