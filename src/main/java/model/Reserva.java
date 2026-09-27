@@ -21,6 +21,10 @@ public class Reserva {
     private LocalDate fechaFin;
     private double descuentoAplicado;
 
+    public static ReservaBuilder builder() {
+        return new ReservaBuilder();
+    }
+
     public Reserva(String codigo, Cliente cliente, Vehiculo vehiculo, ModalidadAlquiler modalidad,
                    LocalDate fechaInicio, LocalDate fechaFin, double descuentoAplicado) {
         this(codigo, cliente, vehiculo, modalidad, fechaInicio, fechaFin, descuentoAplicado, new ArrayList<>());

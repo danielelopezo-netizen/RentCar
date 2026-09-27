@@ -21,23 +21,34 @@ public class InicioController {
     // Este método se ejecuta al hacer clic en el botón (enlazado por el onAction)
     @FXML
     void verificarTelefonoCliente(ActionEvent event) {
-        String telefono = txtTelefono.getText();
+        String telefono = txtTelefono.getText() != null ? txtTelefono.getText().trim() : "";
 
         if (telefono.isEmpty()) {
-            lblResultadoTelefono.setText("Por favor, ingrese un número.");
+            lblResultadoTelefono.setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold;");
+            lblResultadoTelefono.setText("Por favor, ingrese un número de teléfono.");
             return;
         }
 
-        // Usamos la clase Cliente para acceder a la lógica que ya habías programado
-        Cliente clienteTemp = new Cliente("", "", telefono, "", 0, null);
-        boolean esPerfecto = clienteTemp.esNumeroPerfecto(telefono);
+        // Buscar cliente en la empresa (Patrón Singleton) y verificar si es número perfecto
+        Cliente cliente = Empresa.getInstance().buscarClientePorTelefono(telefono);
+        boolean esPerfecto = util.NumeroPerfectoUtil.esNumeroPerfecto(telefono);
 
-        if (esPerfecto) {
-            lblResultadoTelefono.setStyle("-fx-text-fill: #2ecc71; -fx-font-weight: bold;");
-            lblResultadoTelefono.setText("¡Éxito! El número " + telefono + " SÍ es un número perfecto.");
+        if (cliente != null) {
+            if (esPerfecto) {
+                lblResultadoTelefono.setStyle("-fx-text-fill: #2ecc71; -fx-font-weight: bold;");
+                lblResultadoTelefono.setText("Cliente encontrado: " + cliente.getNombreCompleto() + " | Su teléfono (" + telefono + ") SÍ es un número perfecto.");
+            } else {
+                lblResultadoTelefono.setStyle("-fx-text-fill: #e67e22; -fx-font-weight: bold;");
+                lblResultadoTelefono.setText("Cliente encontrado: " + cliente.getNombreCompleto() + " | Su teléfono (" + telefono + ") NO es un número perfecto.");
+            }
         } else {
-            lblResultadoTelefono.setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold;");
-            lblResultadoTelefono.setText("El número " + telefono + " NO es perfecto.");
+            if (esPerfecto) {
+                lblResultadoTelefono.setStyle("-fx-text-fill: #3498db; -fx-font-weight: bold;");
+                lblResultadoTelefono.setText("El número " + telefono + " SÍ es perfecto (no registrado como cliente).");
+            } else {
+                lblResultadoTelefono.setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold;");
+                lblResultadoTelefono.setText("Cliente no encontrado y el número " + telefono + " NO es perfecto.");
+            }
         }
     }
 
@@ -70,8 +81,8 @@ public class InicioController {
             return;
         }
 
-        // Instanciamos la empresa (idealmente esto debería ser global en la aplicación)
-        Empresa miEmpresa = new Empresa();
+        // Obtenemos la instancia única de la empresa (Patrón Singleton)
+        Empresa miEmpresa = Empresa.getInstance();
 
         // Ejecutamos el método que creaste anteriormente
         double total = miEmpresa.calcularIngresos(fechaInicio, fechaFin);

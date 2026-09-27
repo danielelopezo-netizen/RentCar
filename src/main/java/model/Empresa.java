@@ -26,6 +26,29 @@ public class Empresa {
     private List<ServicioAdicional> serviciosAdicionales;
     private List<Reserva> reservas;
 
+    // Instancia única (Patrón Creacional Singleton)
+    private static Empresa instance;
+
+    /**
+     * Retorna la instancia única global de la Empresa (Patrón Singleton).
+     * Se inicializa con datos de prueba si no existe.
+     */
+    public static synchronized Empresa getInstance() {
+        if (instance == null) {
+            instance = new Empresa();
+            instance.inicializarDatosPrueba();
+        }
+        return instance;
+    }
+
+    /**
+     * Permite reiniciar la instancia (útil para aislar pruebas unitarias).
+     */
+    public static synchronized void reiniciarInstancia() {
+        instance = new Empresa();
+        instance.inicializarDatosPrueba();
+    }
+
     public Empresa() {
         this("RentCar S.A.S.", "900.567.890-1", "Avenida El Dorado #68-90, Bogotá",
                 "6017890123", "servicio@rentcar.com", "www.rentcar.com");
