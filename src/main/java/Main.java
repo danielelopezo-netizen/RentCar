@@ -25,13 +25,13 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(fxmlLocation);
 
         // Configuramos la ventana (Stage) y la escena (Scene)
-        Scene scene = new Scene(root, 700, 500);
-        primaryStage.setTitle("RentCar - Sistema de Gestión");
+        Scene scene = new Scene(root, 980, 700);
+        primaryStage.setTitle("RentCar - Sistema Integral de Gestión de Alquiler de Vehículos");
         primaryStage.setScene(scene);
 
         // Evitamos que la ventana sea más pequeña de lo diseñado
-        primaryStage.setMinWidth(700);
-        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(920);
+        primaryStage.setMinHeight(650);
 
         primaryStage.show();
     }
