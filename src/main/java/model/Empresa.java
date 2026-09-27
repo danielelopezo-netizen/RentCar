@@ -18,6 +18,10 @@ public class Empresa {
     private List<ServicioAdicional> serviciosAdicionales;
     private List<Reserva> reservas;
 
+    public Empresa() {
+        this("RentCar S.A.S.", "900.123.456-7", "Calle Principal 123", "3001234567", "contacto@rentcar.com", "www.rentcar.com");
+    }
+
     public Empresa(String nombreComercial, String nit, String direccion,
                    String telefono, String correoElectronico, String paginaWeb) {
         this.nombreComercial = nombreComercial;

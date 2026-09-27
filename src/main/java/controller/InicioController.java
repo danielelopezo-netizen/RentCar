@@ -40,10 +40,6 @@ public class InicioController {
             lblResultadoTelefono.setText("El número " + telefono + " NO es perfecto.");
         }
     }
-    import javafx.scene.control.DatePicker;
-import java.time.LocalDate;
-import model.Empresa;
-import model.Reserva; // Asegúrate de importar esto si usas datos de prueba
 
     // Nuevas variables enlazadas a la pestaña de ingresos
     @FXML
