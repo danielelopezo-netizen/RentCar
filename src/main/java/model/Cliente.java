@@ -1,7 +1,12 @@
 package model;
 
+import util.NumeroPerfectoUtil;
 import java.time.LocalDate;
+import java.util.Objects;
 
+/**
+ * Representa a un cliente de la empresa RentCar.
+ */
 public class Cliente {
     private String nombreCompleto;
     private String documentoIdentidad;
@@ -9,6 +14,7 @@ public class Cliente {
     private String correoElectronico;
     private int edad;
     private LocalDate fechaRegistro;
+
     public Cliente(String nombreCompleto, String documentoIdentidad, String telefono,
                    String correoElectronico, int edad, LocalDate fechaRegistro) {
         this.nombreCompleto = nombreCompleto;
@@ -16,7 +22,7 @@ public class Cliente {
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
         this.edad = edad;
-        this.fechaRegistro = fechaRegistro;
+        this.fechaRegistro = fechaRegistro != null ? fechaRegistro : LocalDate.now();
     }
 
     // Getters y Setters
@@ -68,29 +74,36 @@ public class Cliente {
         this.fechaRegistro = fechaRegistro;
     }
 
+    /**
+     * Verifica si el número de teléfono pasado como parámetro es un número perfecto.
+     * Delega la lógica de cálculo a NumeroPerfectoUtil (SRP).
+     */
     public boolean esNumeroPerfecto(String telefono) {
-        long numero;
-        try {
-            numero = Long.parseLong(telefono);
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        return NumeroPerfectoUtil.esNumeroPerfecto(telefono);
+    }
 
-        if (numero <= 1) {
-            return false;
-        }
+    /**
+     * Determina si el número de teléfono registrado del cliente es perfecto.
+     */
+    public boolean tieneTelefonoPerfecto() {
+        return NumeroPerfectoUtil.esNumeroPerfecto(this.telefono);
+    }
 
-        long sumaDivisores = 1;
+    @Override
+    public String toString() {
+        return nombreCompleto + " (" + documentoIdentidad + ") - Tel: " + telefono;
+    }
 
-        for (long i = 2; i <= Math.sqrt(numero); i++) {
-            if (numero % i == 0) {
-                sumaDivisores += i;
-                if (i != (numero / i)) {
-                    sumaDivisores += (numero / i);
-                }
-            }
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(documentoIdentidad, cliente.documentoIdentidad);
+    }
 
-        return sumaDivisores == numero;
+    @Override
+    public int hashCode() {
+        return Objects.hash(documentoIdentidad);
     }
 }
