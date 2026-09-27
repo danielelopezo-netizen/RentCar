@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InicioController">
+    <top>
+        <AnchorPane prefHeight="60.0" style="-fx-background-color: #2c3e50;" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="20.0" layoutY="15.0" text="RentCar - Sistema de Gestión" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Módulo de Clientes">
+                    <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                            <children>
+                                <Label text="Verificación de Teléfono (Número Perfecto)">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label text="Ingrese el número de teléfono del cliente:" />
+                                <TextField fx:id="txtTelefono" maxWidth="250.0" promptText="Ej: 28" />
+                                <Button mnemonicParsing="false" onAction="#verificarTelefonoCliente" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Verificar Número" />
+                                <Label fx:id="lblResultadoTelefono" text="..." textFill="#e74c3c">
+                                    <font>
+                                        <Font name="System Italic" size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Módulo de Vehículos">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="32.0" layoutY="32.0" text="Aquí irá el formulario para registrar vehículos..." textFill="#7f8c8d" />
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Gestión de Reservas e Ingresos">
+                    <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                            <children>
+                                <Label text="Cálculo de Ingresos por Periodo">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label text="Seleccione el rango de fechas para consultar los ingresos totales generados:" />
+                                <DatePicker fx:id="dpFechaInicio" promptText="Fecha de Inicio" />
+                                <DatePicker fx:id="dpFechaFin" promptText="Fecha de Fin" />
+                                <Button mnemonicParsing="false" onAction="#calcularIngresosPeriodo" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Calcular Ingresos" />
+                                <Label fx:id="lblResultadoIngresos" text="Total: $0.0" textFill="#2c3e50">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
